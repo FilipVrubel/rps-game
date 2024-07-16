@@ -7,9 +7,6 @@ function getComputerChoice() {
 
 let getHumanChoice = () => prompt("Enter your choice:");
 
-let humanScore = 0;
-let computerScore = 0;
-
 function playRound(humanChoice, computerChoice) {
     if (humanChoice == computerChoice) {
         console.log(`Tie! Both players chose ${humanChoice}.`)
@@ -17,39 +14,67 @@ function playRound(humanChoice, computerChoice) {
         switch(computerChoice) {
             case "paper":
                 console.log("You lose! Paper beats Rock");
-                computerScore++;
-                break;
+                return "computer";
             case "scissors":
                 console.log("You win! Rock beats Scissors.")
-                humanScore++;
-                break;
+                return "human";
         }
     } else if (humanChoice == "paper") {
         switch(computerChoice) {
             case "rock":
                 console.log("You win! Paper beats Rock.");
-                humanScore++;
-                break;
+                return "human";
             case "scissors":
                 console.log("You lose! Scissors beats Paper.");
-                computerScore++;
-                break;
+                return "computer";
         }
     } else {
         switch(computerChoice) {
             case "rock":
                 console.log("You lose! Rock beats Scissors.");
-                computerScore++;
-                break;
+                return "computer";
             case "paper":
                 console.log("You win! Scissors beats Paper.")
-                humanScore++;
-                break;
+                return "human";
         }
     }
 }
 
-const humanChoice = getHumanChoice().toLowerCase();
-const computerChoice = getComputerChoice();
+function determineWinner(humanScore, computerScore) {
+    if (humanScore > computerScore) {
+        console.log(`You won! You: ${humanScore}, Computer: ${computerScore}`);
+    } else if (humanScore < computerScore) {
+        console.log(`You lost! You: ${humanScore}, Computer: ${computerScore}`);
+    } else {
+        console.log(`Tie! You: ${humanScore}, Computer: ${computerScore}`)
+    }
+}
+function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+    let humanChoice;
+    let computerChoice;
+    let roundWinner;
 
-playRound(humanChoice, computerChoice);
+    for (let i = 0; i < 5; i++) {
+        humanChoice = getHumanChoice().toLowerCase();
+        computerChoice = getComputerChoice();
+        
+        roundWinner = playRound(humanChoice, computerChoice);
+        
+        switch (roundWinner) {
+            case "human":
+                humanScore++;
+                break;
+            case "computer":
+                computerScore++;
+                break;
+        }
+    }
+
+    determineWinner(humanScore, computerScore);
+    console.log(humanScore)
+    console.log(computerScore)
+}
+
+playGame();
