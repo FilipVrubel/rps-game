@@ -5,3 +5,4 @@ function getComputerChoice() {
     return num % 3 == 0 ? "rock" : num % 3 == 1 ? "paper" : "scissors";
 }
 
+let getHumanChoice = () => prompt("Enter your choice (rock / paper / scissors):");
