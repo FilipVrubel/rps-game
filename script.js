@@ -1,3 +1,21 @@
+const body = document.querySelector("body");
+
+const rock = document.createElement("button");
+rock.textContent = "Rock";
+body.appendChild(rock);
+
+const paper = document.createElement("button");
+paper.textContent = "Paper";
+body.appendChild(paper);
+
+const scissors = document.createElement("button");
+scissors.textContent = "Scissors";
+body.appendChild(scissors);
+
+rock.addEventListener("click", () => playRound("rock", getComputerChoice()));
+paper.addEventListener("click", () => playRound("paper", getComputerChoice()));
+scissors.addEventListener("click", () => playRound("scissors", getComputerChoice()));
+
 let getRandom = () => Math.floor(Math.random() * 100) + 1;
 
 function getComputerChoice() {
@@ -40,39 +58,3 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
-function determineWinner(humanScore, computerScore) {
-    if (humanScore > computerScore) {
-        console.log(`You won! You: ${humanScore}, Computer: ${computerScore}`);
-    } else if (humanScore < computerScore) {
-        console.log(`You lost! You: ${humanScore}, Computer: ${computerScore}`);
-    } else {
-        console.log(`Tie! You: ${humanScore}, Computer: ${computerScore}`)
-    }
-}
-function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
-    let humanChoice;
-    let computerChoice;
-    let roundWinner;
-
-    humanChoice = getHumanChoice().toLowerCase();
-    computerChoice = getComputerChoice();
-    
-    roundWinner = playRound(humanChoice, computerChoice);
-    
-    switch (roundWinner) {
-        case "human":
-            humanScore++;
-            break;
-        case "computer":
-            computerScore++;
-            break;
-    }
-
-    determineWinner(humanScore, computerScore);
-    console.log(humanScore)
-    console.log(computerScore)
-}
-
-playGame();
