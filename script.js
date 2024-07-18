@@ -56,20 +56,18 @@ function playGame() {
     let computerChoice;
     let roundWinner;
 
-    for (let i = 0; i < 5; i++) {
-        humanChoice = getHumanChoice().toLowerCase();
-        computerChoice = getComputerChoice();
-        
-        roundWinner = playRound(humanChoice, computerChoice);
-        
-        switch (roundWinner) {
-            case "human":
-                humanScore++;
-                break;
-            case "computer":
-                computerScore++;
-                break;
-        }
+    humanChoice = getHumanChoice().toLowerCase();
+    computerChoice = getComputerChoice();
+    
+    roundWinner = playRound(humanChoice, computerChoice);
+    
+    switch (roundWinner) {
+        case "human":
+            humanScore++;
+            break;
+        case "computer":
+            computerScore++;
+            break;
     }
 
     determineWinner(humanScore, computerScore);
