@@ -12,6 +12,16 @@ const scissors = document.createElement("button");
 scissors.textContent = "Scissors";
 body.appendChild(scissors);
 
+const msg = document.createElement("div");
+body.appendChild(msg);
+
+let humanScore = 0;
+let computerScore = 0;
+
+const score = document.createElement("div");
+score.textContent = "You: 0, Computer: 0";
+body.appendChild(score);
+
 rock.addEventListener("click", () => playRound("rock", getComputerChoice()));
 paper.addEventListener("click", () => playRound("paper", getComputerChoice()));
 scissors.addEventListener("click", () => playRound("scissors", getComputerChoice()));
@@ -25,36 +35,59 @@ function getComputerChoice() {
 
 let getHumanChoice = () => prompt("Enter your choice:");
 
+let winner;
 function playRound(humanChoice, computerChoice) {
+    if (humanScore == 5 || computerScore == 5) return;
+
     if (humanChoice == computerChoice) {
-        console.log(`Tie! Both players chose ${humanChoice}.`)
+        msg.textContent = (`Tie! Both players chose ${humanChoice}.`);
+        return;
     } else if (humanChoice == "rock") {
         switch(computerChoice) {
             case "paper":
-                console.log("You lose! Paper beats Rock");
-                return "computer";
+                computerScore++;
+                winner = "computer";
+                break;
             case "scissors":
-                console.log("You win! Rock beats Scissors.")
-                return "human";
+                humanScore++;
+                winner = "human";
+                break;
         }
     } else if (humanChoice == "paper") {
         switch(computerChoice) {
             case "rock":
-                console.log("You win! Paper beats Rock.");
-                return "human";
+                humanScore++;
+                winner = "human";
+                break;
             case "scissors":
-                console.log("You lose! Scissors beats Paper.");
-                return "computer";
+                computerScore++;
+                winner = "computer";
+                break;
         }
     } else {
         switch(computerChoice) {
             case "rock":
-                console.log("You lose! Rock beats Scissors.");
-                return "computer";
+                computerScore++;
+                winner = "computer";
+                break;
             case "paper":
-                console.log("You win! Scissors beats Paper.")
-                return "human";
+                humanScore++;
+                winner = "human";   
+                break;
         }
     }
+
+    score.textContent = `You: ${humanScore}, Computer: ${computerScore}`;
+
+    if (humanScore == 5) {
+        msg.textContent = "You won the game!";
+        return;
+    } else if (computerScore == 5) {
+        msg.textContent = "You lost the game!";
+        return;
+    }
+
+    msg.textContent = winner == "human" ? `You win, ${humanChoice} beats ${computerChoice}` 
+        : `You lose, ${computerChoice} beats ${humanChoice}`;
 }
 
